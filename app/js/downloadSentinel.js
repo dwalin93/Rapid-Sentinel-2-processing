@@ -6,6 +6,8 @@ var url_search="https://scihub.copernicus.eu/apihub/search?q=";
 function getSentinelData(){
     UUID = 'f7ebcd08-25c9-4aee-99d9-a5d72fa4f317';
     Filename = 'S2A_MSIL1C_20171010T104021_N0205_R008_T32ULC_20171010T104021.SAFE';
+    username = '';
+    pw = '';
 
     console.log('hier1');
     $.ajax({
@@ -16,11 +18,15 @@ function getSentinelData(){
         dataType:'json',
         async:true,
         xhrFields: {
-            withCredentials: false
+            withCredentials: true
         },
         headers: {
             'Access-Control-Allow-Origin': 'X-Requested-With'
+            //"Authorization": "Basic " + btoa('username' + ":" + 'pw')
 
+        },
+        beforeSend: function (xhr){
+            xhr.setRequestHeader('Authorization', btoa('username', 'pw'));
         },
         success: function(data,status){
             JSON.parse((JSON.stringify(data)));
@@ -32,6 +38,7 @@ function getSentinelData(){
 
 
     })
+
 }
 
 
